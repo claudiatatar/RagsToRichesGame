@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -36,12 +37,19 @@ public class QuestUI : MonoBehaviour
     void Start()
     {
         questFullPanel.SetActive(false);
-        questMiniHUD.SetActive(true);
+        questMiniHUD.SetActive(false);
 
         if (itemRows.Count > 0)
             SelectRow(itemRows[0]);
 
         RefreshAll();
+        StartCoroutine(ShowMiniHUDAfterLoad());
+    }
+
+    IEnumerator ShowMiniHUDAfterLoad()
+    {
+        yield return null;
+        questMiniHUD.SetActive(true);
     }
 
     void Update()
@@ -71,6 +79,11 @@ public class QuestUI : MonoBehaviour
     public bool IsFullPanelOpen()
     {
         return fullPanelOpen;
+    }
+
+    public void ShowMiniHUD()
+    {
+        questMiniHUD.SetActive(true);
     }
 
     public void SelectRow(ItemRow row)
