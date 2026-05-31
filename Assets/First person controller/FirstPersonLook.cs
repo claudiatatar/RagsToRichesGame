@@ -9,7 +9,6 @@ public class FirstPersonLook : MonoBehaviour
     public float sensitivity = 1;
     public float smoothing = 2;
 
-
     void Reset()
     {
         character = GetComponentInParent<FirstPersonMovement>().transform;
@@ -23,6 +22,9 @@ public class FirstPersonLook : MonoBehaviour
 
     void Update()
     {
+        // Stop camera movement when quest panel is open
+        if (QuestUI.Instance != null && QuestUI.Instance.IsFullPanelOpen()) return;
+
         // Get smooth mouse look.
         Vector2 smoothMouseDelta = Vector2.Scale(new Vector2(Input.GetAxisRaw("Mouse X"), Input.GetAxisRaw("Mouse Y")), Vector2.one * sensitivity * smoothing);
         appliedMouseDelta = Vector2.Lerp(appliedMouseDelta, smoothMouseDelta, 1 / smoothing);

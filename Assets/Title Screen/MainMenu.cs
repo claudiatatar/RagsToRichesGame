@@ -5,18 +5,21 @@ public class MainMenu : MonoBehaviour
 {
     private FirstPersonLook firstPersonLook;
 
-    void Start()
-    {
-        // Free cursor
-        Cursor.lockState = CursorLockMode.None;
-        Cursor.visible = true;
-        Time.timeScale = 1f;
+  void Start()
+{
+    Cursor.lockState = CursorLockMode.None;
+    Cursor.visible = true;
+    Time.timeScale = 1f;
 
-        // Freeze camera
+    if (Camera.main != null)
+    {
         firstPersonLook = Camera.main.GetComponent<FirstPersonLook>();
         if (firstPersonLook != null)
             firstPersonLook.enabled = false;
     }
+
+    if (SoundManager.Instance != null) SoundManager.Instance.PlayMainMenuMusic();
+}
 
     public void Play()
     {
